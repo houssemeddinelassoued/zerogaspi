@@ -3,7 +3,7 @@
  * Récupère les données de l'API et met à jour l'interface
  */
 
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = '/api';
 
 // Variables globales
 let allBaskets = [];
@@ -144,7 +144,7 @@ function displayError(message) {
     if (grid) {
         grid.innerHTML = `<div style="grid-column: 1/-1; padding: 2rem; background: #ffe0e0; border-radius: 8px; color: #d32f2f;">
             <p><strong>⚠️ Erreur :</strong> ${message}</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Le serveur doit fonctionner sur http://localhost:3000</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Verifiez que l'API est accessible sur /api</p>
         </div>`;
     }
 }

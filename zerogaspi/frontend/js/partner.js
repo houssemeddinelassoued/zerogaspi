@@ -3,7 +3,7 @@
  * Récupère les données de l'API et affiche les paniers du commerçant
  */
 
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = '/api';
 
 // Variables globales
 let allBaskets = [];
@@ -154,7 +154,7 @@ function displayError(message) {
     if (basketList) {
         basketList.innerHTML = `<div style="padding: 2rem; background: #ffe0e0; border-radius: 8px; color: #d32f2f; text-align: center;">
             <p><strong>⚠️ Erreur :</strong> ${message}</p>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem;">Vérifiez que le serveur fonctionne sur http://localhost:3000</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">Verifiez que l'API est accessible sur /api</p>
         </div>`;
     }
 }
