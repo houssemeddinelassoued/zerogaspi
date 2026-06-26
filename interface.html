@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZéroGaspi - Sauvez des repas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#2b6954",
+                        "primary-fixed": "#6bff8f",
+                        "surface": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-fixed": "#d9e6dd",
+                        "outline-variant": "#bccbb9",
+                        "on-tertiary-container": "#37433c",
+                        "on-primary-fixed": "#002109",
+                        "surface-container-high": "#dce9ff",
+                        "surface-dim": "#cbdbf5",
+                        "inverse-primary": "#4ae176",
+                        "outline": "#6d7b6c",
+                        "surface-tint": "#006e2f",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary-fixed-variant": "#3e4943",
+                        "secondary-container": "#adedd3",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#3d4a3d",
+                        "surface-container-low": "#eff4ff",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#4ae176",
+                        "on-secondary-container": "#306d58",
+                        "tertiary-fixed-dim": "#bdcac1",
+                        "secondary-fixed-dim": "#95d3ba",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-fixed": "#b0f0d6",
+                        "primary-container": "#22c55e",
+                        "on-primary-container": "#004b1e",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#a2afa7",
+                        "on-secondary-fixed-variant": "#0b513d",
+                        "surface-container": "#e5eeff",
+                        "error-container": "#ffdad6",
+                        "primary": "#006e2f",
+                        "on-primary-fixed-variant": "#005321",
+                        "on-background": "#0b1c30",
+                        "on-tertiary-fixed": "#131e19",
+                        "inverse-surface": "#213145",
+                        "tertiary": "#55615a",
+                        "on-secondary-fixed": "#002117",
+                        "background": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-desktop": "2rem",
+                        "unit": "8px",
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem",
+                        "container-padding-mobile": "1rem",
+                        "gutter": "1.5rem",
+                        "stack-lg": "2rem"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ambient-shadow-1 { box-shadow: 0px 4px 20px rgba(6, 78, 59, 0.05); }
+        .ambient-shadow-2 { box-shadow: 0px 10px 30px rgba(6, 78, 59, 0.12); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface shadow-sm flex justify-between items-center w-full px-container-padding-desktop py-4 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<h1 class="font-display text-headline-md font-bold text-primary">ZéroGaspi</h1>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Explorer</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Paniers</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Commerçants</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Impact</a>
+</nav>
+</div>
+<div class="flex-1 max-w-md mx-8 hidden lg:block">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-md text-body-md" placeholder="Rechercher des paniers, lieux..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="Notifications" class="text-on-surface-variant hover:text-primary transition-colors p-2">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Panier" class="text-on-surface-variant hover:text-primary transition-colors p-2">
+<span class="material-symbols-outlined">shopping_basket</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-tertiary-container overflow-hidden ml-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container">person</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 w-full max-w-[1440px] mx-auto">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col gap-stack-md p-gutter w-64 h-[calc(100vh-80px)] sticky top-[80px] bg-surface-container-low border-r border-outline-variant">
+<div class="mb-4">
+<h2 class="font-headline-md text-headline-md text-primary mb-1">Filtres</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Affinez votre recherche</p>
+</div>
+<nav class="flex flex-col gap-2 flex-1">
+<button class="flex items-center gap-3 bg-secondary-container text-on-secondary-container font-bold rounded-lg px-4 py-3 text-left w-full transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">category</span>
+<span class="font-label-md text-label-md">Tous les produits</span>
+</button>
+<button class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 text-left w-full transition-all duration-200">
+<span class="material-symbols-outlined">bakery_dining</span>
+<span class="font-label-md text-label-md">Boulangerie</span>
+</button>
+<button class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 text-left w-full transition-all duration-200">
+<span class="material-symbols-outlined">eco</span>
+<span class="font-label-md text-label-md">Légumes &amp; Fruits</span>
+</button>
+<button class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 text-left w-full transition-all duration-200">
+<span class="material-symbols-outlined">set_meal</span>
+<span class="font-label-md text-label-md">Produits Frais</span>
+</button>
+<button class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 text-left w-full transition-all duration-200 mt-4 border-t border-outline-variant pt-4">
+<span class="material-symbols-outlined">filter_list</span>
+<span class="font-label-md text-label-md">Prix &amp; Distance</span>
+</button>
+</nav>
+<div class="mt-auto pt-4">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-full hover:scale-98 transition-transform duration-200 ambient-shadow-1">
+                    Appliquer les filtres
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-container-padding-mobile md:p-container-padding-desktop overflow-y-auto">
+<div class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Paniers près de chez vous</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Découvrez les invendus du jour et faites un geste pour la planète.</p>
+</div>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Card 1: Bio Basket -->
+<article class="bg-surface rounded-xl overflow-hidden ambient-shadow-1 border border-outline-variant/20 flex flex-col group cursor-pointer hover:ambient-shadow-2 transition-shadow duration-300 relative">
+<div class="absolute top-3 right-3 bg-tertiary-container text-on-tertiary-container px-2 py-1 rounded font-label-sm text-label-sm z-10 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">eco</span>
+                        Bio
+                    </div>
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A rustic wicker basket overflowing with fresh organic vegetables, including vibrant orange carrots with green tops, dark green kale, a halved purple cabbage, red bell peppers, and fresh fruit like strawberries and bananas, sitting on a weathered wooden table against a clean white wall. Natural, soft daylight illuminates the fresh produce, creating a wholesome, healthy, and eco-friendly mood." src="https://lh3.googleusercontent.com/aida/AP1WRLvmce8XWAvsMeL-tmvh2MYXNlc8JzfMCO0UDVF7BCdNgebDJ7pI6Uy3TtB3mOZsdk2ir6NI5cgb-T-Gu5zTAV8MS7NmuKXLA2n8h3NVajQitR94Z0sMgBLWt8iHXiU1osAqG3lnogLoR6fERY0S5qyRtxdKI-8tfWsFhzFzsbA3BRfciSKS2HUCi76KYAOr7f2nxsMsgrbq-jUF3_UIcI5UCFZp8PFsEMMMRK8uVHauHLW7PVM-bl7CON0"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Panier Maraîcher Bio</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">storefront</span>
+                                    La Ferme Urbaine
+                                </p>
+</div>
+<div class="text-right">
+<p class="font-body-md text-body-md text-on-surface-variant line-through text-sm">18.00 €</p>
+<p class="font-headline-md text-headline-md text-primary text-xl">5.99 €</p>
+</div>
+</div>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 bg-surface-container py-1 px-2 rounded-full">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                Réc. 17h30 - 19h00
+                            </span>
+<button class="bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md px-4 py-2 rounded-full transition-colors duration-200">
+                                Réserver
+                            </button>
+</div>
+</div>
+</article>
+<!-- Card 2: Bakery Basket -->
+<article class="bg-surface rounded-xl overflow-hidden ambient-shadow-1 border border-outline-variant/20 flex flex-col group cursor-pointer hover:ambient-shadow-2 transition-shadow duration-300 relative">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A wooden crate filled with an assortment of freshly baked pastries and bread, including golden croissants dusted with powdered sugar, cinnamon rolls, baguettes, and fruit danishes. The crate sits on a rustic wooden table near a window with soft, warm morning sunlight streaming in. A small chalkboard sign reads 'Surprise Basket - Daily Delights'. The atmosphere is cozy, warm, and inviting." src="https://lh3.googleusercontent.com/aida/AP1WRLvFg09wBP1eNgC-1vn1qBuh66lqx80MRNf6mFHbJz5vKHRMOSEbDr7CmwHI8PuzpmGHtGE26QMaafAVhrwbtMdD_NYk0dIQo0wS1TomQFWMvbrogVmcCNmYgX0ls3EGwLRxzF1LIiT8vMbe8jRtT4X_XlrFaIgJIjN9aSo8btU-Cryu-KSQTCxLC1_Bd2mjmL5Kcchiooj_y3eKCmB_j7-jpF92rF3wY0RiixemyGmRMyrzRx7UqcKdAfcI"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Surprise Boulangère</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">storefront</span>
+                                    Le Pain Quotidien
+                                </p>
+</div>
+<div class="text-right">
+<p class="font-body-md text-body-md text-on-surface-variant line-through text-sm">12.00 €</p>
+<p class="font-headline-md text-headline-md text-primary text-xl">3.99 €</p>
+</div>
+</div>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 bg-surface-container py-1 px-2 rounded-full">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                Réc. 19h00 - 20h00
+                            </span>
+<button class="bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md px-4 py-2 rounded-full transition-colors duration-200">
+                                Réserver
+                            </button>
+</div>
+</div>
+</article>
+<!-- Card 3: Gourmet Basket -->
+<article class="bg-surface rounded-xl overflow-hidden ambient-shadow-1 border border-outline-variant/20 flex flex-col group cursor-pointer hover:ambient-shadow-2 transition-shadow duration-300 relative">
+<div class="absolute top-3 right-3 bg-secondary-container text-on-secondary-container px-2 py-1 rounded font-label-sm text-label-sm z-10 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">star</span>
+                        Premium
+                    </div>
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautifully arranged premium gourmet gift basket containing fine cheeses, cured meats like salami, artisanal crackers, fresh green grapes, plump red strawberries, small jars of jam, and a bottle of olive oil. The basket is woven wicker with a white cloth lining, set against a clean, neutral background on a light wood surface. The lighting is studio-quality, clean, bright, and highly appetizing." src="https://lh3.googleusercontent.com/aida/AP1WRLsWt81mZIdYVUTpSnwpFwJC1YW4REJ-owZhJddVvoHCeAKkXkSrZpnC7cqnkbIjv-XlOoaEI1UntU15WGl-NczfgtGpjGUkCP0hOKnIFV0yHHwmWnd4CsG4vxQ4lJ1Uq0YmCZUzVafJKOM-b49cQCoAPNFjqWjxc0lVZAFkfhgsTFPzermSMsxG5zi5BXXWp4h1gEjdztUj__V5FTK2h_4MNUnlB1lML65uLkynTcIVvwdnVhUVKbAIKbHZ"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Assortiment Épicerie Fine</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">storefront</span>
+                                    Maison Gourmet
+                                </p>
+</div>
+<div class="text-right">
+<p class="font-body-md text-body-md text-on-surface-variant line-through text-sm">35.00 €</p>
+<p class="font-headline-md text-headline-md text-primary text-xl">12.50 €</p>
+</div>
+</div>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 bg-surface-container py-1 px-2 rounded-full">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                Réc. 18h00 - 19h30
+                            </span>
+<button class="bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md px-4 py-2 rounded-full transition-colors duration-200">
+                                Réserver
+                            </button>
+</div>
+</div>
+</article>
+<!-- Placeholder Card for visual balance if needed, skipping for minimalism but keeping grid robust -->
+<!-- Card 4: Seafood Basket -->
+<article class="bg-surface rounded-xl overflow-hidden ambient-shadow-1 border border-outline-variant/20 flex flex-col group cursor-pointer hover:ambient-shadow-2 transition-shadow duration-300 relative">
+<div class="h-48 overflow-hidden relative">
+<img alt="Panier de la Mer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFZ-Yxa_x9Fe9-zN24H3jkFa2ek2UBOVXOjEYK0H-75JnL2ZiJCh2hxBczUjl-U_o2yH1g0AFMQS5AzCBsbXSvGzkGrl6U0YOlHGyZV_gRW5_i86GcV8gh45sEQw6BeZlId2B5qujSbTir6V2RZ7MXImHy6Y39lHMUObEJl-H2XM-Bn8Tx3pX_b0snCA46G-PmVKR10wZeXeYjLsSR7fxPW0LRPOw8LvZ3hvlDrrlXmYqltwnRz4EUBeF725_vr0-ddjLCv9e8xdUt"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Panier de la Mer</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">storefront</span>
+                    La Criée du Port
+                </p>
+</div>
+<div class="text-right">
+<p class="font-body-md text-body-md text-on-surface-variant line-through text-sm">25.00 €</p>
+<p class="font-headline-md text-headline-md text-primary text-xl">8.99 €</p>
+</div>
+</div>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 bg-surface-container py-1 px-2 rounded-full">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                Réc. 17h30 - 18h30
+            </span>
+<button class="bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md px-4 py-2 rounded-full transition-colors duration-200">
+                Réserver
+            </button>
+</div>
+</div>
+</article>
+<!-- Card 5: Butcher Selection -->
+<article class="bg-surface rounded-xl overflow-hidden ambient-shadow-1 border border-outline-variant/20 flex flex-col group cursor-pointer hover:ambient-shadow-2 transition-shadow duration-300 relative">
+<div class="h-48 overflow-hidden relative">
+<img alt="Sélection du Boucher" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcVyDV10FpJhU--TowNgw5NMnmCHd9jLRe2dS5xEx2FEoUmm7qmzI4lxIqOLI1x5h58UTOhDVjSjZ6xv4CTf5beMqzeMoRg9EKrVZSSqM84bzhIG7RRrdUXu_E1lXf4blsfrzpewOdrCFnJcTTrmgXA517PuRgTKQxWm4le8UlXjexkq-LPtO2xFvyjKy6cMx_gdcWRIK9-PNEhG421BXO3Jq69jiMLoDk8opy_IeajwVc3WufdGioT0txijZx_qhQoOGqp9VIWKfe"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Sélection du Boucher</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">storefront</span>
+                    Boucherie Artisanale
+                </p>
+</div>
+<div class="text-right">
+<p class="font-body-md text-body-md text-on-surface-variant line-through text-sm">28.50 €</p>
+<p class="font-headline-md text-headline-md text-primary text-xl">9.99 €</p>
+</div>
+</div>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 bg-surface-container py-1 px-2 rounded-full">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                Réc. 18h00 - 19h00
+            </span>
+<button class="bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md px-4 py-2 rounded-full transition-colors duration-200">
+                Réserver
+            </button>
+</div>
+</div>
+</article>
+<!-- Card 6: Italian Delight -->
+<article class="bg-surface rounded-xl overflow-hidden ambient-shadow-1 border border-outline-variant/20 flex flex-col group cursor-pointer hover:ambient-shadow-2 transition-shadow duration-300 relative">
+<div class="h-48 overflow-hidden relative">
+<img alt="Délice Italien" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEdECMVfDs_cbVJ02OWPm6NP7IM09sBIuu2mCq4vuGznGuHEeBlSnivij95FSIYuV5vIyPdR8mmgv-BgOfZiyZoILPLW-zFd3IsqzJlYmJqmaqbgFG1EB-yd_8PTQ3aewyJl5D7tUnLe1583sM169Ki7HLXevf5JrjvJ-N9uQ0DBXKjY07GZhMTIm5-KF94scyQQ7btxga-l9LAGgbknDm1Ysh8MB-HCKSk2OeADLOWYxD80_W5tpnsfNhJ_NnI4UxZrgfV1T01zWJ"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Délice Italien</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">storefront</span>
+                    Il Gusto d'Italia
+                </p>
+</div>
+<div class="text-right">
+<p class="font-body-md text-body-md text-on-surface-variant line-through text-sm">22.00 €</p>
+<p class="font-headline-md text-headline-md text-primary text-xl">7.50 €</p>
+</div>
+</div>
+<div class="mt-auto pt-4 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 bg-surface-container py-1 px-2 rounded-full">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                Réc. 18h30 - 19h30
+            </span>
+<button class="bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md px-4 py-2 rounded-full transition-colors duration-200">
+                Réserver
+            </button>
+</div>
+</div>
+</article></div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-inverse-surface mt-stack-lg w-full py-12 px-container-padding-desktop flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<span class="font-headline-md text-headline-md text-primary-fixed font-bold">ZéroGaspi</span>
+<p class="text-inverse-on-surface font-body-md text-body-md">© 2024 ZéroGaspi - Pour un avenir sans gaspillage</p>
+</div>
+<nav class="flex flex-wrap justify-center gap-6">
+<a class="text-surface-variant opacity-80 hover:text-primary-fixed hover:opacity-100 transition-opacity font-label-sm text-label-sm" href="#">À propos</a>
+<a class="text-surface-variant opacity-80 hover:text-primary-fixed hover:opacity-100 transition-opacity font-label-sm text-label-sm" href="#">Devenir partenaire</a>
+<a class="text-surface-variant opacity-80 hover:text-primary-fixed hover:opacity-100 transition-opacity font-label-sm text-label-sm" href="#">Mentions légales</a>
+<a class="text-surface-variant opacity-80 hover:text-primary-fixed hover:opacity-100 transition-opacity font-label-sm text-label-sm" href="#">Contact</a>
+<a class="text-surface-variant opacity-80 hover:text-primary-fixed hover:opacity-100 transition-opacity font-label-sm text-label-sm" href="#">FAQ</a>
+</nav>
+</footer>
+</body></html>

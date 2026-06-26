@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Commercant - ZeroGaspi</title>
+    <meta name="description" content="Pilotez vos paniers, vos collectes et vos indicateurs de performance depuis le dashboard commercant ZeroGaspi.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <script src="../js/partner.js" defer></script>
+</head>
+<body class="page-shell page-shell--dashboard" data-partner-dashboard>
+    <header class="topbar">
+        <div class="brand-wrap">
+            <a class="brand" href="../index.html">ZeroGaspi</a>
+            <nav class="topnav" aria-label="Navigation principale partenaire">
+                <a class="topnav__link" href="../index.html">Explorer</a>
+                <a class="topnav__link is-active" href="dashboard.html">Dashboard</a>
+                <a class="topnav__link" href="../admin/dashboard.html">Validation</a>
+            </nav>
+        </div>
+
+        <div class="searchbar searchbar--dashboard" role="search">
+            <span class="material-symbols-outlined searchbar__icon" aria-hidden="true">search</span>
+            <input id="basket-search" type="search" aria-label="Rechercher un panier ou un horaire" placeholder="Rechercher un panier, une collecte, un statut...">
+        </div>
+
+        <div class="topbar__actions" aria-label="Actions rapides">
+            <button class="icon-btn" type="button" aria-label="Consulter les notifications">
+                <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+            </button>
+            <button class="icon-btn" type="button" aria-label="Voir les performances du jour">
+                <span class="material-symbols-outlined" aria-hidden="true">insights</span>
+            </button>
+            <button class="avatar avatar--merchant" type="button" aria-label="Compte du commercant">
+                <span class="material-symbols-outlined" aria-hidden="true">storefront</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="partner-dashboard">
+        <section class="partner-hero card-surface" aria-labelledby="partner-hero-title">
+            <div class="partner-hero__copy">
+                <p class="eyebrow">Espace commercant</p>
+                <h1 id="partner-hero-title">Pilotez vos invendus avec une vue claire sur la journee.</h1>
+                <p>Creez vos paniers en quelques secondes, suivez les retraits confirmes et gardez un oeil sur votre impact environnemental sans quitter la meme interface.</p>
+                <div class="partner-hero__actions">
+                    <a class="filters-cta partner-hero__cta" href="#create-basket">Ajouter un panier</a>
+                    <button class="ghost-btn" type="button">Voir les retraits du jour</button>
+                </div>
+            </div>
+            <div class="partner-hero__aside">
+                <div class="merchant-card">
+                    <div class="merchant-card__header">
+                        <div>
+                            <p class="merchant-card__label">Commerce actif</p>
+                            <h2>Maison Lambert</h2>
+                        </div>
+                        <span class="status-pill status-pill--success">Valide</span>
+                    </div>
+                    <ul class="merchant-card__details" aria-label="Informations commerce">
+                        <li><span class="material-symbols-outlined" aria-hidden="true">location_on</span>Centre-ville, Lyon 2</li>
+                        <li><span class="material-symbols-outlined" aria-hidden="true">schedule</span>Collectes entre 17h30 et 20h00</li>
+                        <li><span class="material-symbols-outlined" aria-hidden="true">star</span>4.8/5 sur les 30 derniers paniers</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="partner-metrics" aria-label="Indicateurs cles">
+            <article class="metric-card card-surface">
+                <div>
+                    <p>Paniers actifs</p>
+                    <strong id="total-baskets">0</strong>
+                </div>
+                <span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>
+            </article>
+            <article class="metric-card card-surface">
+                <div>
+                    <p>Nourriture sauvee</p>
+                    <strong id="saved-food">0 kg</strong>
+                </div>
+                <span class="material-symbols-outlined" aria-hidden="true">eco</span>
+            </article>
+            <article class="metric-card card-surface">
+                <div>
+                    <p>CO2 evite</p>
+                    <strong id="avoided-co2">0 kg</strong>
+                </div>
+                <span class="material-symbols-outlined" aria-hidden="true">air</span>
+            </article>
+            <article class="metric-card card-surface">
+                <div>
+                    <p>Taux de reservation</p>
+                    <strong id="reservation-rate">0%</strong>
+                </div>
+                <span class="material-symbols-outlined" aria-hidden="true">trending_up</span>
+            </article>
+        </section>
+
+        <div class="partner-workspace">
+            <div class="partner-main">
+                <section class="workspace-card card-surface" id="create-basket" aria-labelledby="create-basket-title">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-heading__eyebrow">Creation rapide</p>
+                            <h2 id="create-basket-title">Publier un nouveau panier</h2>
+                        </div>
+                        <p class="section-heading__meta">Les paniers apparaissent dans votre liste apres validation du formulaire.</p>
+                    </div>
+
+                    <form id="basket-form" class="basket-form">
+                        <label>
+                            <span>Titre du panier</span>
+                            <input name="title" type="text" placeholder="Ex. Panier brunch de fin de service" required>
+                        </label>
+                        <label>
+                            <span>Categorie</span>
+                            <select name="category" required>
+                                <option value="Boulangerie">Boulangerie</option>
+                                <option value="Epicerie">Epicerie</option>
+                                <option value="Restauration">Restauration</option>
+                                <option value="Fruits & legumes">Fruits & legumes</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Prix reduit</span>
+                            <input name="price" type="number" min="1" step="0.01" placeholder="6.90" required>
+                        </label>
+                        <label>
+                            <span>Quantite</span>
+                            <input name="quantity" type="number" min="1" step="1" placeholder="5" required>
+                        </label>
+                        <label>
+                            <span>Retrait</span>
+                            <input name="pickup" type="text" placeholder="18h30 - 19h30" required>
+                        </label>
+                        <label class="basket-form__full">
+                            <span>Description courte</span>
+                            <textarea name="description" rows="3" placeholder="Precisez le contenu estimatif du panier et les conditions de retrait." required></textarea>
+                        </label>
+                        <div class="basket-form__full basket-form__actions">
+                            <p id="form-feedback" class="form-feedback" aria-live="polite">Ajoutez un panier pour alimenter votre vitrine du jour.</p>
+                            <button class="filters-cta" type="submit">Publier le panier</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="workspace-card card-surface" aria-labelledby="inventory-title">
+                    <div class="section-heading section-heading--stack-mobile">
+                        <div>
+                            <p class="section-heading__eyebrow">Gestion des offres</p>
+                            <h2 id="inventory-title">Mes paniers disponibles</h2>
+                        </div>
+                        <div class="dashboard-filters" role="tablist" aria-label="Filtrer les paniers">
+                            <button class="dashboard-filter is-active" type="button" data-filter="all" aria-pressed="true">Tous</button>
+                            <button class="dashboard-filter" type="button" data-filter="active" aria-pressed="false">Actifs</button>
+                            <button class="dashboard-filter" type="button" data-filter="almost-full" aria-pressed="false">Dernieres places</button>
+                            <button class="dashboard-filter" type="button" data-filter="draft" aria-pressed="false">Brouillons</button>
+                        </div>
+                    </div>
+
+                    <div id="basket-list" class="partner-basket-grid" aria-live="polite"></div>
+                </section>
+            </div>
+
+            <aside class="partner-rail" aria-label="Informations complementaires">
+                <section class="workspace-card card-surface">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-heading__eyebrow">Planning</p>
+                            <h2>Retraits a venir</h2>
+                        </div>
+                    </div>
+                    <ul id="pickup-timeline" class="timeline-list"></ul>
+                </section>
+
+                <section class="workspace-card card-surface">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-heading__eyebrow">Qualite de service</p>
+                            <h2>Checklist du soir</h2>
+                        </div>
+                    </div>
+                    <ul class="checklist">
+                        <li><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Verifier les horaires de retrait affiches</li>
+                        <li><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Mettre a jour les quantites restantes</li>
+                        <li><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Preparer une zone de collecte visible</li>
+                    </ul>
+                </section>
+
+                <section class="workspace-card workspace-card--accent card-surface">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-heading__eyebrow">Impact cumule</p>
+                            <h2>Votre commerce progresse</h2>
+                        </div>
+                    </div>
+                    <p class="impact-copy">Vous avez deja sauve plus de 180 kg de produits ce mois-ci. Gardez au moins 3 paniers actifs pour maintenir une bonne visibilite locale.</p>
+                    <div class="impact-bar" aria-hidden="true">
+                        <span></span>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div>
+            <a class="brand brand--footer" href="../index.html">ZeroGaspi</a>
+            <p>Interface commercant concue pour publier vite, suivre mieux et reduire le gaspillage.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Navigation de pied de page partenaire">
+            <a href="../index.html">Retour a l'accueil</a>
+            <a href="#create-basket">Ajouter un panier</a>
+            <a href="../admin/dashboard.html">Support validation</a>
+        </nav>
+    </footer>
+</body>
+</html>

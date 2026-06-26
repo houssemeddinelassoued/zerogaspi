@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Administrateur - ZeroGaspi</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../js/admin.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Tableau de Bord Administrateur</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Gestion des Utilisateurs</a></li>
+                <li><a href="#">Analyse des Données</a></li>
+                <li><a href="#">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="analytics">
+            <h2>Analyse des Données</h2>
+            <div id="data-summary">
+                <p>Nombre total d'utilisateurs : <span id="user-count">0</span></p>
+                <p>Nombre total de paniers : <span id="basket-count">0</span></p>
+                <p>Quantité de nourriture sauvée : <span id="food-saved">0 kg</span></p>
+            </div>
+        </section>
+        <section id="user-management">
+            <h2>Gestion des Utilisateurs</h2>
+            <button id="add-user">Ajouter un Utilisateur</button>
+            <div id="user-list">
+                <!-- Liste des utilisateurs sera chargée ici -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 ZeroGaspi. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

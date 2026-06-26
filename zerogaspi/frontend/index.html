@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZéroGaspi - Tous les paniers</title>
+    <meta name="description" content="Découvrez les paniers anti-gaspi disponibles près de chez vous sur ZéroGaspi.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-shell">
+    <header class="topbar">
+        <div class="brand-wrap">
+            <a class="brand" href="#">ZéroGaspi</a>
+            <nav class="topnav" aria-label="Navigation principale">
+                <a class="topnav__link is-active" href="#">Explorer</a>
+                <a class="topnav__link" href="#">Paniers</a>
+                <a class="topnav__link" href="#">Commerçants</a>
+                <a class="topnav__link" href="#">Impact</a>
+            </nav>
+        </div>
+
+        <div class="searchbar" role="search">
+            <span class="material-symbols-outlined searchbar__icon" aria-hidden="true">search</span>
+            <input type="search" aria-label="Rechercher des paniers, lieux" placeholder="Rechercher des paniers, lieux...">
+        </div>
+
+        <div class="topbar__actions" aria-label="Actions rapides">
+            <button class="icon-btn" type="button" aria-label="Notifications">
+                <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+            </button>
+            <button class="icon-btn" type="button" aria-label="Panier">
+                <span class="material-symbols-outlined" aria-hidden="true">shopping_basket</span>
+            </button>
+            <button class="avatar" type="button" aria-label="Compte utilisateur">
+                <span class="material-symbols-outlined" aria-hidden="true">person</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside class="filters-panel" aria-label="Filtres">
+            <div class="filters-panel__intro">
+                <h2>Filtres</h2>
+                <p>Affinez votre recherche</p>
+            </div>
+
+            <nav class="filters-list">
+                <button class="filter-chip is-selected" type="button">
+                    <span class="material-symbols-outlined" aria-hidden="true">category</span>
+                    <span>Tous les produits</span>
+                </button>
+                <button class="filter-chip" type="button">
+                    <span class="material-symbols-outlined" aria-hidden="true">bakery_dining</span>
+                    <span>Boulangerie</span>
+                </button>
+                <button class="filter-chip" type="button">
+                    <span class="material-symbols-outlined" aria-hidden="true">eco</span>
+                    <span>Légumes &amp; Fruits</span>
+                </button>
+                <button class="filter-chip" type="button">
+                    <span class="material-symbols-outlined" aria-hidden="true">set_meal</span>
+                    <span>Produits Frais</span>
+                </button>
+
+                <div class="filters-separator" aria-hidden="true"></div>
+
+                <button class="filter-chip filter-chip--ghost" type="button">
+                    <span class="material-symbols-outlined" aria-hidden="true">filter_list</span>
+                    <span>Prix &amp; Distance</span>
+                </button>
+            </nav>
+
+            <button class="filters-cta" type="button">Appliquer les filtres</button>
+        </aside>
+
+        <main class="content">
+            <section class="hero">
+                <h1>Paniers près de chez vous</h1>
+                <p>Découvrez les invendus du jour et faites un geste pour la planète.</p>
+            </section>
+
+            <section class="cards-grid" aria-label="Tous les paniers">
+                <!-- Les paniers sont chargés dynamiquement depuis l'API -->
+                <div style="grid-column: 1/-1; padding: 2rem; text-align: center; color: #666;">
+                    <p>⏳ Chargement des paniers...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div>
+            <a class="brand brand--footer" href="#">ZéroGaspi</a>
+            <p>© 2024 ZéroGaspi - Pour un avenir sans gaspillage</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Navigation de pied de page">
+            <a href="#">À propos</a>
+            <a href="#">Devenir partenaire</a>
+            <a href="#">Mentions légales</a>
+            <a href="#">Contact</a>
+            <a href="#">FAQ</a>
+        </nav>
+    </footer>
+
+    <script src="js/baskets.js"></script>
+</body>
+</html>
