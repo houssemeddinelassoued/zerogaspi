@@ -7,6 +7,30 @@ const path       = require('path');
 const { DatabaseSync } = require('node:sqlite');
 const createModels = require('./models/models');
 
+/** ajouter une fonction de verification de la base de données */
+function verifyDatabase(db) {
+    try {
+        db.prepare('SELECT 1').get();
+        console.log('✅ Base de données SQLite accessible et opérationnelle.');
+    } catch (error) {
+        console.error('❌ Erreur lors de l\'accès à la base de données SQLite :', error.message);
+        process.exit(1);
+    }
+}
+
+// fonction qui supprime toutes les tables de la base de données (utile pour les tests)
+function clearDatabase(db) {
+    db.exec(`
+        DROP TABLE IF EXISTS orders;
+        DROP TABLE IF EXISTS paniers_surprises;
+        DROP TABLE IF EXISTS commercants;
+        DROP TABLE IF EXISTS clients;
+    `);
+    console.log('✅ Database cleared: all tables dropped.');
+    
+}   
+
+
 function initializeDatabase(db) {
     db.exec(`
         CREATE TABLE IF NOT EXISTS commercants (
@@ -45,6 +69,18 @@ function initializeDatabase(db) {
             heure_collecte TEXT,
             cree_le        TEXT    NOT NULL DEFAULT (datetime('now'))
         );
+
+        CREATE TABLE IF NOT EXISTS orders (
+            id            INTEGER PRIMARY KEY AUTOINCREMENT,
+            client_id     INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+            panier_id     INTEGER NOT NULL REFERENCES paniers_surprises(id) ON DELETE RESTRICT,
+            quantite      INTEGER NOT NULL DEFAULT 1 CHECK(quantite > 0),
+            prix_unitaire REAL    NOT NULL CHECK(prix_unitaire >= 0),
+            montant_total REAL    NOT NULL CHECK(montant_total >= 0),
+            statut        TEXT    NOT NULL DEFAULT 'created' CHECK(statut IN ('created', 'cancelled')),
+            cree_le       TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
+
     `);
 }
 
@@ -190,6 +226,7 @@ function createApp(options = {}) {
     // ─── Routes ─────────────────────────────────────────────────────────────
     app.use('/api/auth', require('./routes/auth'));
     app.use('/api/baskets', require('./routes/baskets'));
+    app.use('/api/orders', require('./routes/order'));
     app.use('/api/partners', require('./routes/partners'));
     app.use('/api/admin', require('./routes/admin'));
 

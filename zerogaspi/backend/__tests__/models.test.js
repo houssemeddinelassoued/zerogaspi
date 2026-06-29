@@ -103,4 +103,58 @@ describe('models', () => {
             expect.objectContaining({ quantite: 0, est_actif: 0 })
         );
     });
+
+    test('Order should be created for a client and listed with basket and merchant labels', () => {
+        const { Commercant, Client, PanierSurprise, Order } = models;
+
+        const merchantId = Commercant.creer({
+            nom: 'Merchant Orders',
+            email: 'merchant.orders@test.fr',
+            mot_de_passe: 'hash',
+            adresse: '5 rue du Test',
+        }).id;
+        Commercant.valider(merchantId);
+
+        const clientId = Client.creer({
+            nom: 'Client Orders',
+            email: 'client.orders@test.fr',
+            mot_de_passe: 'hash',
+        }).id;
+
+        const basketId = PanierSurprise.creer({
+            commercant_id: merchantId,
+            nom: 'Panier Orders',
+            prix_origine: 18,
+            prix_reduit: 7,
+            quantite: 6,
+        }).id;
+
+        const { id: orderId } = Order.creer({
+            client_id: clientId,
+            panier_id: basketId,
+            quantite: 2,
+            prix_unitaire: 7,
+            montant_total: 14,
+        });
+
+        expect(Order.trouverParId(orderId)).toEqual(
+            expect.objectContaining({
+                id: orderId,
+                client_id: clientId,
+                panier_id: basketId,
+                quantite: 2,
+                montant_total: 14,
+            })
+        );
+
+        expect(Order.listerParClient(clientId)).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    id: orderId,
+                    panier_nom: 'Panier Orders',
+                    commercant_nom: 'Merchant Orders',
+                }),
+            ])
+        );
+    });
 });

@@ -26,18 +26,19 @@ exports.getPartnerById = (req, res) => {
         const { mot_de_passe: _, ...safe } = partner;
         res.json(safe);
     } catch {
-        res.status(500).json({ error: 'Erreur lors de la récupération du partenaire.' });
+
+        res.status(500).json({ error: 'Impossible de récupérer ce partenaire pour le moment. Veuillez réessayer plus tard.' });
     }
 };
 
 // ─── PUT /api/partners/:id ────────────────────────────────────────────────
-exports.updatePartner = (req, res) => {
+exports.updatePartner = (req, result) => {
     try {
         const { Commercant } = req.app.locals.models;
-        const id = Number(req.params.id);
+        const identifiant = Number(req.params.id);
 
-        if (!Commercant.trouverParId(id)) {
-            return res.status(404).json({ error: 'Partenaire introuvable.' });
+        if (!Commercant.trouverParId(identifiant)) {
+            return result.status(404).json({ error: 'Partenaire introuvable.' });
         }
 
         const champsAutorisés = ['nom', 'adresse', 'telephone', 'categorie', 'latitude', 'longitude'];
@@ -46,13 +47,15 @@ exports.updatePartner = (req, res) => {
         );
 
         if (Object.keys(data).length === 0) {
-            return res.status(400).json({ error: 'Aucun champ modifiable fourni.' });
+            return result.status(400).json({ error: 'Aucun champ modifiable fourni.' });
         }
 
-        Commercant.mettreAJour(id, data);
-        const { mot_de_passe: _, ...safe } = Commercant.trouverParId(id);
-        res.json(safe);
+        Commercant.mettreAJour(identifiant, data);
+        const { mot_de_passe: _, ...safe } = Commercant.trouverParId(identifiant);
+        result.json(safe);
     } catch {
-        res.status(500).json({ error: 'Erreur lors de la mise à jour du partenaire.' });
+        result.status(500).json({ error: 'Impossible de mettre à jour ce partenaire pour le moment. Veuillez réessayer plus tard.' });
     }
 };
+
+

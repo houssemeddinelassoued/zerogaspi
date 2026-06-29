@@ -7,6 +7,10 @@ describe('API routes', () => {
     let db;
     let models;
     let adminToken;
+    let consumerToken;
+    let secondConsumerToken;
+    let consumerId;
+    let secondConsumerId;
     let partnerId;
     let validatedPartnerId;
     let basketId;
@@ -40,14 +44,22 @@ describe('API routes', () => {
             description: 'Panier API',
         }).id;
 
-        models.Client.creer({
+        consumerId = models.Client.creer({
             nom: 'Client Test',
             email: 'client@test.fr',
             mot_de_passe: 'hash',
-        });
+        }).id;
+
+        secondConsumerId = models.Client.creer({
+            nom: 'Client Second',
+            email: 'client.second@test.fr',
+            mot_de_passe: 'hash',
+        }).id;
 
         process.env.JWT_SECRET = 'test_secret';
         adminToken = jwt.sign({ id: 999, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        consumerToken = jwt.sign({ id: consumerId, role: 'consumer' }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        secondConsumerToken = jwt.sign({ id: secondConsumerId, role: 'consumer' }, process.env.JWT_SECRET, { expiresIn: '1h' });
     });
 
     afterEach(() => {
@@ -129,11 +141,73 @@ describe('API routes', () => {
 
         expect(response.status).toBe(200);
         expect(response.body).toEqual({
-            total_clients: 1,
+            total_clients: 2,
             total_partenaires: 2,
             partenaires_valides: 1,
             total_paniers: 1,
             paniers_actifs: 1,
         });
+    });
+
+    test('POST /api/orders creates an order for authenticated consumer and decrements basket quantity', async () => {
+        const response = await request(app)
+            .post('/api/orders')
+            .set('Authorization', `Bearer ${consumerToken}`)
+            .send({ panier_id: basketId, quantite: 2 });
+
+        expect(response.status).toBe(201);
+        expect(response.body).toEqual(
+            expect.objectContaining({
+                client_id: consumerId,
+                panier_id: basketId,
+                quantite: 2,
+                prix_unitaire: 8,
+                montant_total: 16,
+            })
+        );
+
+        expect(models.PanierSurprise.trouverParId(basketId)).toEqual(
+            expect.objectContaining({ quantite: 2, est_actif: 1 })
+        );
+    });
+
+    test('POST /api/orders rejects when stock is insufficient', async () => {
+        const response = await request(app)
+            .post('/api/orders')
+            .set('Authorization', `Bearer ${consumerToken}`)
+            .send({ panier_id: basketId, quantite: 99 });
+
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual(
+            expect.objectContaining({ error: expect.stringContaining('Stock insuffisant') })
+        );
+    });
+
+    test('GET /api/orders/my returns only orders for authenticated consumer', async () => {
+        const firstOrderResponse = await request(app)
+            .post('/api/orders')
+            .set('Authorization', `Bearer ${consumerToken}`)
+            .send({ panier_id: basketId, quantite: 1 });
+
+        await request(app)
+            .post('/api/orders')
+            .set('Authorization', `Bearer ${secondConsumerToken}`)
+            .send({ panier_id: basketId, quantite: 1 });
+
+        const listResponse = await request(app)
+            .get('/api/orders/my')
+            .set('Authorization', `Bearer ${consumerToken}`);
+
+        expect(firstOrderResponse.status).toBe(201);
+        expect(listResponse.status).toBe(200);
+        expect(listResponse.body).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    id: firstOrderResponse.body.id,
+                    client_id: consumerId,
+                }),
+            ])
+        );
+        expect(listResponse.body.find((o) => o.client_id === secondConsumerId)).toBeUndefined();
     });
 });

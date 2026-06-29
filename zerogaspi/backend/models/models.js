@@ -10,7 +10,7 @@
  * Utilisation :
  *   const connectDB = require('../config/database');
  *   const db = connectDB();
- *   const { Commercant, Client, PanierSurprise } = require('./models')(db);
+ *   const { Commercant, Client, PanierSurprise, Order } = require('./models')(db);
  */
 
 /**
@@ -259,5 +259,55 @@ module.exports = function createModels(db) {
     }
 
 
-    return { Commercant, Client, PanierSurprise };
+    /* ================================================================
+     *  ORDER
+     *  Représente une commande client d'un ou plusieurs paniers.
+     *  Une commande appartient à un client et référence un panier.
+     * ================================================================ */
+    class Order {
+        /**
+         * Crée une nouvelle commande.
+         * @param {{ client_id: number, panier_id: number, quantite: number, prix_unitaire: number, montant_total: number }} data
+         * @returns {{ id: number }}
+         */
+        static creer(data) {
+            const stmt = db.prepare(`
+                INSERT INTO orders (client_id, panier_id, quantite, prix_unitaire, montant_total)
+                VALUES (@client_id, @panier_id, @quantite, @prix_unitaire, @montant_total)
+            `);
+            const result = stmt.run(data);
+            return { id: result.lastInsertRowid };
+        }
+
+        /**
+         * Récupère une commande par son identifiant.
+         * @param {number} id
+         * @returns {object|undefined}
+         */
+        static trouverParId(id) {
+            return db.prepare('SELECT * FROM orders WHERE id = ?').get(id);
+        }
+
+        /**
+         * Liste les commandes d'un client (plus récente en premier).
+         * @param {number} clientId
+         * @returns {object[]}
+         */
+        static listerParClient(clientId) {
+            return db.prepare(`
+                SELECT
+                    o.*,
+                    p.nom AS panier_nom,
+                    c.nom AS commercant_nom
+                FROM orders o
+                JOIN paniers_surprises p ON p.id = o.panier_id
+                JOIN commercants c ON c.id = p.commercant_id
+                WHERE o.client_id = ?
+                ORDER BY o.cree_le DESC, o.id DESC
+            `).all(clientId);
+        }
+    }
+
+
+    return { Commercant, Client, PanierSurprise, Order };
 };

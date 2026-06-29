@@ -1,4 +1,5 @@
 /**
+ * Role du fichier : Contrôleur pour les actions administratives
  * adminController.js — Back-office administrateur
  *
  * GET /api/admin/partners/pending     → partenaires en attente

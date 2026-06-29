@@ -1,0 +1,73 @@
+# .copilotignore - Exemples types pour limiter le contexte envoyé a Copilot
+# Syntaxe proche de .gitignore
+
+# 1) Dependances
+node_modules/
+**/node_modules/
+
+# 2) Builds et artefacts
+build/
+dist/
+out/
+coverage/
+**/coverage/
+.tmp/
+tmp/
+
+# 3) Logs et rapports generes
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+reports/
+
+# 4) Secrets, configurations locales, variables d'environnement
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+secrets/
+
+# 5) Donnees locales / bases temporaires
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+
+# 6) Fichiers lourds et medias binaires
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+*.mp4
+*.mov
+*.avi
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.pdf
+
+# 7) IDE / systeme
+.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# 8) Caches divers
+.cache/
+**/.cache/
+.eslintcache
+.parcel-cache/
+.next/
+.nuxt/
+
+# 9) Exemples specifiques ZeroGaspi (deja couverts ci-dessus mais explicites)
+zerogaspi/coverage/
+zerogaspi/reports/

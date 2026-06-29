@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node backend/server.js",
     "dev": "nodemon backend/server.js",
+    "lint:syntax": "node scripts/validate-syntax.js",
+    "validate:precommit": "npm run lint:syntax && npm test",
     "test": "jest --runInBand",
     "test:coverage": "jest --runInBand --coverage"
   },

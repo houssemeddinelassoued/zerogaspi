@@ -53,6 +53,17 @@ function connectDB() {
             heure_collecte  TEXT,
             cree_le         TEXT    NOT NULL DEFAULT (datetime('now'))
         );
+
+        CREATE TABLE IF NOT EXISTS orders (
+            id            INTEGER PRIMARY KEY AUTOINCREMENT,
+            client_id     INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+            panier_id     INTEGER NOT NULL REFERENCES paniers_surprises(id) ON DELETE RESTRICT,
+            quantite      INTEGER NOT NULL DEFAULT 1 CHECK(quantite > 0),
+            prix_unitaire REAL    NOT NULL CHECK(prix_unitaire >= 0),
+            montant_total REAL    NOT NULL CHECK(montant_total >= 0),
+            statut        TEXT    NOT NULL DEFAULT 'created' CHECK(statut IN ('created', 'cancelled')),
+            cree_le       TEXT    NOT NULL DEFAULT (datetime('now'))
+        );
     `);
 
     console.log(`Base de données SQLite connectée : ${DB_PATH}`);
